@@ -43,6 +43,9 @@ class Result:
 
 def longest_run_recursive(mylist, key):
   
+  left = mylist[:(len(mylist) // 2)]
+  right = mylist[(len(mylist) // 2):]
+  
   if len(mylist) == 0:
     return Result(0, 0, 0, False)
   if len(mylist) == 1:
@@ -50,10 +53,6 @@ def longest_run_recursive(mylist, key):
       return Result(1, 1, 1, True)
     else:
       return Result(0,0,0, False)
-    
-
-  left = mylist[:(len(mylist) // 2)]
-  right = mylist[(len(mylist) // 2):]
 
   left_run = longest_run_recursive(left, key)
   right_run = longest_run_recursive(right, key)
@@ -70,7 +69,7 @@ def longest_run_recursive(mylist, key):
   longest = max(left_run.longest_size, right_run.longest_size,
                 left_run.right_size + right_run.left_size)
 
-  is_entire_range = left_run.is_entire_range and right_run.is_entire_range
+  is_entire_range = left_run.is_entire_range & right_run.is_entire_range
 
   return Result(left_size,right_size,longest,is_entire_range)
 
